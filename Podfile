@@ -8,4 +8,5 @@ target 'RxContactList' do
   # Pods for RxContactList
     pod 'RxSwift', '6.5.0'
     pod 'RxCocoa', '6.5.0'
+    pod 'RxDataSources', '~> 5.0'
 end

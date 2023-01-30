@@ -18,6 +18,8 @@ class NewContactViewController: UIViewController {
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     
+    var contact: Contact?
+    
     let newContactRelay = PublishRelay<Contact>()
     
     private let bag = DisposeBag()
@@ -25,6 +27,7 @@ class NewContactViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureUI()
         configureRx()
     }
 }
@@ -63,5 +66,11 @@ private extension NewContactViewController {
             }
             .bind(to: newContactRelay)
             .disposed(by: bag)
+    }
+    
+    func configureUI() {
+        firstNameTextField.text = contact?.firstName
+        secondNameTextField.text = contact?.secondName
+        phoneTextField.text = contact?.phoneNumber
     }
 }

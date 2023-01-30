@@ -17,6 +17,9 @@
 		D3A3561F298266440050A31D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3561E298266440050A31D /* TableViewCell.swift */; };
 		D3A35621298266DD0050A31D /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A35620298266DD0050A31D /* ContactModel.swift */; };
 		D3A35623298268810050A31D /* NewContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A35622298268810050A31D /* NewContactViewController.swift */; };
+		D3A356252987A5EF0050A31D /* RxDataSourcesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A356242987A5EF0050A31D /* RxDataSourcesProtocol.swift */; };
+		D3A356272987A8530050A31D /* BaseCellModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A356262987A8530050A31D /* BaseCellModelProtocol.swift */; };
+		D3A356292987ABC30050A31D /* ContactCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A356282987ABC30050A31D /* ContactCellModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,9 @@
 		D3A3561E298266440050A31D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		D3A35620298266DD0050A31D /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
 		D3A35622298268810050A31D /* NewContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContactViewController.swift; sourceTree = "<group>"; };
+		D3A356242987A5EF0050A31D /* RxDataSourcesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxDataSourcesProtocol.swift; sourceTree = "<group>"; };
+		D3A356262987A8530050A31D /* BaseCellModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCellModelProtocol.swift; sourceTree = "<group>"; };
+		D3A356282987ABC30050A31D /* ContactCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCellModel.swift; sourceTree = "<group>"; };
 		FA4DA13464DDC653DC3312AD /* Pods-RxContactList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxContactList.debug.xcconfig"; path = "Target Support Files/Pods-RxContactList/Pods-RxContactList.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +95,8 @@
 				D3A35608298262840050A31D /* AppDelegate.swift */,
 				D3A3560A298262840050A31D /* SceneDelegate.swift */,
 				D3A3560C298262840050A31D /* ViewController.swift */,
+				D3A356262987A8530050A31D /* BaseCellModelProtocol.swift */,
+				D3A356282987ABC30050A31D /* ContactCellModel.swift */,
 				D3A35622298268810050A31D /* NewContactViewController.swift */,
 				D3A3561E298266440050A31D /* TableViewCell.swift */,
 				D3A35620298266DD0050A31D /* ContactModel.swift */,
@@ -96,6 +104,7 @@
 				D3A35611298262890050A31D /* Assets.xcassets */,
 				D3A35613298262890050A31D /* LaunchScreen.storyboard */,
 				D3A35616298262890050A31D /* Info.plist */,
+				D3A356242987A5EF0050A31D /* RxDataSourcesProtocol.swift */,
 			);
 			path = RxContactList;
 			sourceTree = "<group>";
@@ -217,8 +226,11 @@
 			files = (
 				D3A3560D298262840050A31D /* ViewController.swift in Sources */,
 				D3A3561F298266440050A31D /* TableViewCell.swift in Sources */,
+				D3A356272987A8530050A31D /* BaseCellModelProtocol.swift in Sources */,
+				D3A356252987A5EF0050A31D /* RxDataSourcesProtocol.swift in Sources */,
 				D3A35609298262840050A31D /* AppDelegate.swift in Sources */,
 				D3A35621298266DD0050A31D /* ContactModel.swift in Sources */,
+				D3A356292987ABC30050A31D /* ContactCellModel.swift in Sources */,
 				D3A35623298268810050A31D /* NewContactViewController.swift in Sources */,
 				D3A3560B298262840050A31D /* SceneDelegate.swift in Sources */,
 			);

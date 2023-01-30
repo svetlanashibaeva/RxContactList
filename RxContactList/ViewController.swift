@@ -8,8 +8,9 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Differentiator
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, RxDataSourcesProtocol {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addNewContactButton: UIBarButtonItem!
@@ -24,45 +25,55 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDelegate {
-    
-}
-
-extension ViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contactsRelay.value.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! TableViewCell
-        cell.configure(person: contactsRelay.value[indexPath.row])
-        return cell
-    }
-}
-
 private extension ViewController {
     
     func configureRx() {
         contactsRelay
-            .subscribe(with: self) { base, _ in
-                base.tableView.reloadData()
+            .map { contacts -> [Section] in
+                let cellModels = contacts.map { contact in
+                    ContactCellModel(contact: contact)
+                }
+                return [Section(model: "Contacts", items: cellModels)]
+            }
+            .bind(to: tableView.rx.items(dataSource: reloadDataSource()))
+            .disposed(by: bag)
+        
+        tableView.rx.itemSelected
+            .bind(with: tableView) { tableView, indexPath in
+                tableView.deselectRow(at: indexPath, animated: true)
             }
             .disposed(by: bag)
         
-        let newContactController = addNewContactButton.rx.tap
-            .compactMap { [weak self] _ in
-                self?.storyboard?.instantiateViewController(withIdentifier: "NewContact") as? NewContactViewController
+        let selectedContact = tableView.rx.modelSelected(BaseCellModelProtocol.self)
+            .map { ($0 as? ContactCellModel)?.contact }
+        
+        let didTapAdd: Observable<Contact?> = addNewContactButton.rx.tap
+            .map { _ in nil }
+        
+        let newContactController = Observable.merge(selectedContact, didTapAdd)
+            .compactMap { [weak self] contact -> NewContactViewController? in
+                let controller = self?.storyboard?.instantiateViewController(withIdentifier: "NewContact") as? NewContactViewController
+                controller?.contact = contact
+                return controller
             }
             .share()
         
         newContactController
             .flatMap { controller in
                 controller.newContactRelay
-                    .map { [$0] }
+                    .map { [weak controller] newContact in
+                        (new: newContact, old: controller?.contact)
+                    }
             }
-            .withLatestFrom(contactsRelay) { newContact, contacts in
-                contacts + newContact
+            .withLatestFrom(contactsRelay) { changedContact, contacts in
+                if let old = changedContact.old {
+                    guard let index = contacts.firstIndex(where: { $0 == old }) else { return contacts }
+                    var updatedContacts = contacts
+                    updatedContacts[index] = changedContact.new
+                    return updatedContacts
+                }
+                
+                return contacts + [changedContact.new]
             }
             .bind(to: contactsRelay)
             .disposed(by: bag)
