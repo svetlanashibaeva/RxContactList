@@ -10,7 +10,7 @@
 		4396A4EFE843626EC799CCC5 /* Pods_RxContactList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D2F4AE5701EE51FCCFF185E /* Pods_RxContactList.framework */; };
 		D3A35609298262840050A31D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A35608298262840050A31D /* AppDelegate.swift */; };
 		D3A3560B298262840050A31D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3560A298262840050A31D /* SceneDelegate.swift */; };
-		D3A3560D298262840050A31D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3560C298262840050A31D /* ViewController.swift */; };
+		D3A3560D298262840050A31D /* ContactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3560C298262840050A31D /* ContactListViewController.swift */; };
 		D3A35610298262840050A31D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3A3560E298262840050A31D /* Main.storyboard */; };
 		D3A35612298262890050A31D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3A35611298262890050A31D /* Assets.xcassets */; };
 		D3A35615298262890050A31D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3A35613298262890050A31D /* LaunchScreen.storyboard */; };
@@ -28,7 +28,7 @@
 		D3A35605298262840050A31D /* RxContactList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxContactList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3A35608298262840050A31D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3A3560A298262840050A31D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D3A3560C298262840050A31D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D3A3560C298262840050A31D /* ContactListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewController.swift; sourceTree = "<group>"; };
 		D3A3560F298262840050A31D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D3A35611298262890050A31D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3A35614298262890050A31D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -94,8 +94,8 @@
 			children = (
 				D3A35608298262840050A31D /* AppDelegate.swift */,
 				D3A3560A298262840050A31D /* SceneDelegate.swift */,
-				D3A3560C298262840050A31D /* ViewController.swift */,
-				D3A356262987A8530050A31D /* BaseCellModelProtocol.swift */,
+				D3A3560C298262840050A31D /* ContactListViewController.swift */,
+				D3A3562A29893DD70050A31D /* Protocols */,
 				D3A356282987ABC30050A31D /* ContactCellModel.swift */,
 				D3A35622298268810050A31D /* NewContactViewController.swift */,
 				D3A3561E298266440050A31D /* TableViewCell.swift */,
@@ -104,9 +104,17 @@
 				D3A35611298262890050A31D /* Assets.xcassets */,
 				D3A35613298262890050A31D /* LaunchScreen.storyboard */,
 				D3A35616298262890050A31D /* Info.plist */,
-				D3A356242987A5EF0050A31D /* RxDataSourcesProtocol.swift */,
 			);
 			path = RxContactList;
+			sourceTree = "<group>";
+		};
+		D3A3562A29893DD70050A31D /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				D3A356262987A8530050A31D /* BaseCellModelProtocol.swift */,
+				D3A356242987A5EF0050A31D /* RxDataSourcesProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,7 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3A3560D298262840050A31D /* ViewController.swift in Sources */,
+				D3A3560D298262840050A31D /* ContactListViewController.swift in Sources */,
 				D3A3561F298266440050A31D /* TableViewCell.swift in Sources */,
 				D3A356272987A8530050A31D /* BaseCellModelProtocol.swift in Sources */,
 				D3A356252987A5EF0050A31D /* RxDataSourcesProtocol.swift in Sources */,

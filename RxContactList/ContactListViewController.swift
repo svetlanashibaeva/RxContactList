@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ContactListViewController.swift
 //  RxContactList
 //
 //  Created by Света Шибаева on 26.01.2023.
@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import Differentiator
 
-class ViewController: UIViewController, RxDataSourcesProtocol {
+class ContactListViewController: UIViewController, RxDataSourcesProtocol {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addNewContactButton: UIBarButtonItem!
@@ -25,7 +25,7 @@ class ViewController: UIViewController, RxDataSourcesProtocol {
     }
 }
 
-private extension ViewController {
+private extension ContactListViewController {
     
     func configureRx() {
         contactsRelay
