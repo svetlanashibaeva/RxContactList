@@ -78,6 +78,18 @@ private extension ViewController {
             .bind(to: contactsRelay)
             .disposed(by: bag)
         
+        newContactController
+            .flatMap { controller in
+                controller.deleteContactRelay
+            }
+            .withLatestFrom(contactsRelay) { deleteContact, contacts -> [Contact] in
+                guard let index = contacts.firstIndex(where: { $0 == deleteContact }) else { return contacts }
+                var updatedContacts = contacts
+                updatedContacts.remove(at: index)
+                return updatedContacts
+            }
+            .bind(to: contactsRelay)
+            .disposed(by: bag)
         
         newContactController
             .bind(with: self) { base, newContactVC in

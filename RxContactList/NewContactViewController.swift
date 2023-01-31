@@ -21,6 +21,7 @@ class NewContactViewController: UIViewController {
     var contact: Contact?
     
     let newContactRelay = PublishRelay<Contact>()
+    let deleteContactRelay = PublishRelay<Contact>()
     
     private let bag = DisposeBag()
     
@@ -35,20 +36,19 @@ class NewContactViewController: UIViewController {
 private extension NewContactViewController {
     
     func configureRx() {
-        Observable.merge(
-            cancelButton.rx.tap.asObservable(),
-            addButton.rx.tap.asObservable()
-        )
-        .bind(with: self) { base, _ in
-            base.dismiss(animated: true)
-        }
-        .disposed(by: bag)
         
         Observable.combineLatest(
             firstNameTextField.rx.text,
+            secondNameTextField.rx.text,
             phoneTextField.rx.text
         )
-        .map { $0.0 != "" && $0.1 != "" }
+        .map { [contact] firstName, secondName, phone in
+            firstName != ""
+            && phone != ""
+            && (firstName != contact?.firstName
+                || secondName != contact?.secondName
+                || phone != contact?.phoneNumber)
+        }
         .distinctUntilChanged()
         .bind(to: addButton.rx.isEnabled)
         .disposed(by: bag)
@@ -66,11 +66,34 @@ private extension NewContactViewController {
             }
             .bind(to: newContactRelay)
             .disposed(by: bag)
+        
+        deleteButton.rx.tap
+            .compactMap { [contact] _ in
+                contact
+            }
+            .bind(to: deleteContactRelay)
+            .disposed(by: bag)
+        
+        Observable.merge(
+            cancelButton.rx.tap.asObservable(),
+            addButton.rx.tap.asObservable(),
+            deleteButton.rx.tap.asObservable()
+        )
+        .bind(with: self) { base, _ in
+            base.dismiss(animated: true)
+        }
+        .disposed(by: bag)
     }
     
     func configureUI() {
-        firstNameTextField.text = contact?.firstName
-        secondNameTextField.text = contact?.secondName
-        phoneTextField.text = contact?.phoneNumber
+        guard let contact = contact else { return }
+        
+        addButton.title = "Save"
+        title = "Edit contact"
+        deleteButton.isHidden = false
+        
+        firstNameTextField.text = contact.firstName
+        secondNameTextField.text = contact.secondName
+        phoneTextField.text = contact.phoneNumber
     }
 }
