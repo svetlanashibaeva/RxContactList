@@ -15,7 +15,7 @@ class ContactListViewController: UIViewController, RxDataSourcesProtocol {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addNewContactButton: UIBarButtonItem!
     
-    private let contactsRelay = BehaviorRelay<[Contact]>(value: [Contact(firstName: "Sveta", secondName: "Shibaeva", phoneNumber: "89120381708")])
+    private let contactsRelay = BehaviorRelay<[Contact]>(value: [Contact(firstName: "Sveta", secondName: "Shibaeva", phoneNumber: "+7 (912) 038-17-08")])
     private let bag = DisposeBag()
     
     override func viewDidLoad() {

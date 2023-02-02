@@ -25,11 +25,52 @@ class NewContactViewController: UIViewController {
     
     private let bag = DisposeBag()
     
+    private let maxNumberCount = 11
+    
+    private let regex = try? NSRegularExpression(pattern: "[\\+\\s-\\(\\)]", options: .caseInsensitive)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        phoneTextField.delegate = self
+        phoneTextField.keyboardType = .numberPad
+        
         configureUI()
         configureRx()
+    }
+    
+    private func format(phoneNumber: String, shouldRemoveLastDigit: Bool) -> String {
+        guard !(shouldRemoveLastDigit && phoneNumber.count <= 2) else { return "" }
+        
+        let range = NSString(string: phoneNumber).range(of: phoneNumber)
+        guard var number = regex?.stringByReplacingMatches(
+            in: phoneNumber,
+            options: [],
+            range: range,
+            withTemplate: ""
+        ) else { return "" }
+        
+        if number.first != "7" {
+            number = "7" + number
+        }
+        
+        if number.count > maxNumberCount {
+            let maxIndex = number.index(number.startIndex, offsetBy: maxNumberCount)
+            number = String(number[number.startIndex..<maxIndex])
+        }
+        
+        if shouldRemoveLastDigit {
+            let maxIndex = number.index(number.startIndex, offsetBy: number.count - 1)
+            number = String(number[number.startIndex..<maxIndex])
+        }
+        
+        let maxIndex = number.index(number.startIndex, offsetBy: number.count)
+        let regRange = number.startIndex..<maxIndex
+          
+        let pattern = "(\\d)(\\d{3})(\\d{3})(\\d{2})(\\d+)"
+        number = number.replacingOccurrences(of: pattern, with: "$1 ($2) $3-$4-$5", options: .regularExpression, range: regRange)
+        
+        return "+" + number
     }
 }
 
@@ -95,5 +136,14 @@ private extension NewContactViewController {
         firstNameTextField.text = contact.firstName
         secondNameTextField.text = contact.secondName
         phoneTextField.text = contact.phoneNumber
+    }
+}
+
+extension NewContactViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let fullString = (textField.text ?? "") + string
+        textField.text = format(phoneNumber: fullString, shouldRemoveLastDigit: range.length == 1)
+        textField.sendActions(for: .editingChanged)
+        return false
     }
 }
